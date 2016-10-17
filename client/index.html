@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Players and Teams</title>
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script>
+    var app = angular.module('myApp', ['ngRoute']);
+    //routes
+    app.config(function($routeProvider) {
+      $routeProvider
+      .when('/', {
+        templateUrl: 'partials/players.html'
+      })
+      .when('/teams', {
+        templateUrl: 'partials/teams.html'
+      })
+      .when('/associations', {
+        templateUrl: 'partials/associations.html'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+    });
+
+    //factories
+    app.factory('playerFactory', function(){
+      var players       = [];
+      var playerfactory = {};
+    })
+
+    app.factory('teamFactory', function(){
+      var teams       = [];
+      var teamFactory = {};
+    })
+
+    //controlllaaaa controlla
+    app.controller('PlayersController', ['$scope', 'playerFactory', function($scope, playerFactory){
+      $scope.players = playerFactory.getPlayers();
+    }]);
+
+    app.controller('TeamController', ['$scope', 'teamFactory', function($scope, teamFactory){
+      $scope.teams = teamFactory.getTeams();
+    }]);
+
+    app.controller('AssociationsController', ['$scope', 'playerFactory', 'teamFactory', function($scope, playerFactory, teamFactory){
+      $scope.players = playerFactory.getPlayers();
+      $scope.teams   = teamFactory.getTeams();
+    }])
+    </script>
+  </head>
+  <body ng-app = 'myApp'>
+    <a href = '#/'>Players | </a>
+    <a href = '#/'>Teams | </a>
+    <a href = '#/'>Associations</a>
+    <div ng-view = "">
+    </div>
+  </body>
+</html>
