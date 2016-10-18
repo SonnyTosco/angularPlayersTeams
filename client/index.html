@@ -28,20 +28,62 @@
     app.factory('playerFactory', function(){
       var players       = [];
       var playerfactory = {};
+
+      factory.getPlayers = function(){
+        return players
+      }
+
+      factory.addPlayer = function(newPlayer){
+        players.push(newPlayer);
+      }
+
+      factory.deletePlayer  = function(index){
+        players.splice(index, 1);
+      }
     })
 
     app.factory('teamFactory', function(){
       var teams       = [];
       var teamFactory = {};
+
+      factory.getTeams = function(){
+        return teams
+      }
+
+      factory.addTeam = function(newTeam){
+        teams.push(newTeam);
+      }
+
+      factory.deleteTeam = function(index){
+        teams.splice(index, 1);
+      }
     })
 
     //controlllaaaa controlla
     app.controller('PlayersController', ['$scope', 'playerFactory', function($scope, playerFactory){
-      $scope.players = playerFactory.getPlayers();
+      $scope.players    = playerFactory.getPlayers();
+
+      $scope.addPlayer  = function(){
+        playerFactory.addPlayer($scope.newPlayer);
+        $scope.newPlayer = {};
+      }
+
+      $scope.deletePlayer = function(index){
+        playerFactory.deletePlayer(index);
+      }
     }]);
 
-    app.controller('TeamController', ['$scope', 'teamFactory', function($scope, teamFactory){
-      $scope.teams = teamFactory.getTeams();
+    app.controller('TeamsController', ['$scope', 'teamFactory', function($scope, teamFactory){
+      $scope.teams    = teamFactory.getTeams();
+
+      $scope.addTeam  = function(){
+        teamFactory.addTeam($scope.newTeam);
+        $scope.newTeam = {};
+      }
+
+      $scope.deleteTeam = function(index){
+        teamFactory.deleteTeam(index);
+      }
     }]);
 
     app.controller('AssociationsController', ['$scope', 'playerFactory', 'teamFactory', function($scope, playerFactory, teamFactory){
