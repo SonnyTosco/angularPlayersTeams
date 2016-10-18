@@ -26,10 +26,11 @@
 
     //factories
     app.factory('playerFactory', function(){
-      var players       = [];
-      var playerfactory = {};
+      var players             = [];
+      var factory = {};
 
       factory.getPlayers = function(){
+        console.log(factory);
         return players
       }
 
@@ -40,11 +41,12 @@
       factory.deletePlayer  = function(index){
         players.splice(index, 1);
       }
+      return factory;
     })
 
     app.factory('teamFactory', function(){
       var teams       = [];
-      var teamFactory = {};
+      var factory = {};
 
       factory.getTeams = function(){
         return teams
@@ -57,6 +59,7 @@
       factory.deleteTeam = function(index){
         teams.splice(index, 1);
       }
+      return factory;
     })
 
     //controlllaaaa controlla
@@ -94,8 +97,8 @@
   </head>
   <body ng-app = 'myApp'>
     <a href = '#/'>Players | </a>
-    <a href = '#/'>Teams | </a>
-    <a href = '#/'>Associations</a>
+    <a href = '#/teams'>Teams | </a>
+    <a href = '#/associations'>Associations</a>
     <div ng-view = "">
     </div>
   </body>
