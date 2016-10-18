@@ -26,27 +26,38 @@
 
     //factories
     app.factory('playerFactory', function(){
-      var players             = [];
+      var players = [];
       var factory = {};
 
       factory.getPlayers = function(){
-        console.log(factory);
         return players
       }
 
       factory.addPlayer = function(newPlayer){
+        newPlayer.team = "";
+        console.log(newPlayer);
         players.push(newPlayer);
       }
 
       factory.deletePlayer  = function(index){
         players.splice(index, 1);
       }
+
+      factory.assignPlayer = function(data){
+        console.log(data);
+        players[data.playerIdx].team = data.team;
+      }
+
+      factory.deleteAssign = function(index){
+        players[index].team = "";
+      }
+
       return factory;
     })
 
     app.factory('teamFactory', function(){
       var teams       = [];
-      var factory = {};
+      var factory     = {};
 
       factory.getTeams = function(){
         return teams
@@ -57,7 +68,7 @@
       }
 
       factory.deleteTeam = function(index){
-        teams.splice(index, 1);
+        teams.splice(teams.indexOf(index), 1);
       }
       return factory;
     })
@@ -92,6 +103,22 @@
     app.controller('AssociationsController', ['$scope', 'playerFactory', 'teamFactory', function($scope, playerFactory, teamFactory){
       $scope.players = playerFactory.getPlayers();
       $scope.teams   = teamFactory.getTeams();
+      //need to store the player and team as an object. Does that mean I have to create another factory?
+      // playerFactory.getPlayers(function(players){
+      //   $scope.players = players;
+      // });
+      //
+      // teamFactory.getTeams(function(teams){
+      //   $scope.teams = teams;
+      // });
+
+      $scope.assignPlayer = function(){
+        playerFactory.assignPlayer($scope.newAssoc)
+      }
+
+      $scope.deleteAssign = function($index){
+        playerFactory.deleteAssign($index);
+      }
     }])
     </script>
   </head>
